@@ -1,0 +1,168 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }
+
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>hackpad_autobackup.sikuli</h2> <a href="hackpad_autobackup.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="kw">import</span> time
+<span class="kw">import</span> datetime
+<span class="kw">import</span> threading
+
+
+<span class="cmt"># 控制螢幕和鍵盤滑鼠，針對一個hackpad定時自動備份
+</span>
+
+<span class="cmt"># 這個程式使用Sikuli1，請先安裝Sikuli
+</span><span class="cmt"># http://www.sikuli.org
+</span><span class="cmt"># 運作時會搶你的螢幕和鍵盤滑鼠，可多利用閒置的電腦來備份
+</span><span class="cmt">#
+</span><span class="cmt"># 運作時會一直備份，要關掉的話只要把Java平台關掉即可
+</span><span class="cmt">#
+</span><span class="cmt">#
+</span><span class="cmt"># 以CC0授權改作使用
+</span>
+
+<span class="kw">def</span> set_interval(func, sec):
+    <span class="kw">def</span> func_wrapper():
+        set_interval(func, sec)
+        func()
+    t = threading.Timer(sec, func_wrapper)
+    t.start()
+    <span class="kw">return</span> t
+
+
+<span class="kw">def</span> backup(target, browser, editor):
+
+    App.open(browser)
+
+    <span class="skw">type</span>(<span class="str">'t'</span>, KeyModifier.CMD)
+
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+
+    <span class="skw">click</span>(<img src="1395819851429.png" />)
+
+
+    <span class="skw">type</span>(target)
+
+    <span class="skw">type</span>(Key.ENTER)
+
+    <span class="skw">wait</span>(<span class="dig">5</span>)
+
+    <span class="skw">click</span>(Pattern(<img src="1395819956912.png" />).exact().targetOffset(-<span class="dig">227</span>,<span class="dig">82</span>)) <span class="cmt">#此為hackpad的左上角，每個電腦不同，截圖可能需要自己重拍</span>
+
+
+
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+    <span class="skw">type</span>(Key.DOWN * <span class="dig">20</span>, KeyModifier.CTRL); <span class="cmt">#如果文件很大 20 次往下還不夠到底，請自行增加</span>
+
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+
+    keyDown(Key.SHIFT)
+
+    <span class="skw">click</span>(Pattern(<img src="1395821225790.png" />).exact())   <span class="cmt">#此為hackpad的右下角，每個電腦不同，截圖可能需要自己重拍</span>
+
+    keyUp(Key.SHIFT)
+
+
+
+    <span class="skw">type</span>(<span class="str">'c'</span>, KeyModifier.CMD)
+
+
+    App.open(editor)
+
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+
+    <span class="skw">type</span>(<span class="str">'n'</span>, KeyModifier.CMD)
+
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+
+    <span class="skw">type</span>(<span class="str">'v'</span>, KeyModifier.CMD)
+
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+
+    <span class="skw">type</span>(<span class="str">'s'</span>, KeyModifier.CMD)
+
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+
+    paste(target + <span class="str">'__'</span> + datetime.datetime.now().strftime(<span class="str">"%y-%m-%d-%H-%M"</span>))
+
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+
+    <span class="skw">type</span>(Key.ENTER)
+
+
+<span class="kw">def</span> myBackup():
+    backup(<span class="str">'https://hackpad.com/kJ4yjP1uGvH'</span>, <span class="str">'Safari'</span>, <span class="str">'TextEdit'</span>)     <span class="cmt">#一個hackpad網址, 瀏覽器, 近端文字編輯器</span>
+
+
+myBackup()                         <span class="cmt"># 先備份一次</span>
+set_interval(myBackup, <span class="dig">60</span>*<span class="dig">5</span>)       <span class="cmt"># 之後每五分鐘備份一次</span>
+</pre>
+</body>
+</html>
