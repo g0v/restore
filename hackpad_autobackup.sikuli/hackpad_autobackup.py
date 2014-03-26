@@ -89,6 +89,14 @@ def myBackup():
     backup('https://hackpad.com/kJ4yjP1uGvH', 'Safari', 'TextEdit')     #一個hackpad網址, 瀏覽器, 近端文字編輯器
 
 
+    #https://hackpad.com/kJ4yjP 現場注意事項
+    #http://g0v.today/congressoccupied/HpwTUS2OShF 文字傳播認領
+    #待補充
+    #待補充
+    #待補充
+
+
+
 myBackup()                         # 先備份一次
 set_interval(myBackup, 60*5)       # 之後每五分鐘備份一次
 
