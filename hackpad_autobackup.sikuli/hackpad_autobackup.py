@@ -39,15 +39,22 @@ def backup(target, browser, editor):
     type(target)
     
     type(Key.ENTER)
+
+    wait(6)
     
-    wait(5)
-    
-    click(Pattern("1395819956912.png").exact().targetOffset(-227,82)) #此為hackpad的左上角，每個電腦不同，截圖可能需要自己重拍
+    wait(Pattern("1395832531931.png").exact().targetOffset(-131,83))
+
+    click(Pattern("1395832531931.png").exact().targetOffset(-148,78)) #此為hackpad的左上角，每個電腦不同，截圖可能需要自己重拍
 
     
     
     wait(2)
-    type(Key.DOWN * 20, KeyModifier.CTRL); #如果文件很大 20 次往下還不夠到底，請自行增加
+    type(Key.DOWN * 100, KeyModifier.CTRL); #如果文件很大 100 次往下還不夠到底，請自行增加
+    wait(2)
+
+    if ( not exists(Pattern("1395821225790.png").exact())):        
+        wait(2)
+        type(Key.DOWN * 500, KeyModifier.CTRL); #如果文件很大 500 次往下還不夠到底，請自行增加
     
     wait(2)
     
@@ -80,13 +87,13 @@ def backup(target, browser, editor):
     
     paste(target + '__' + datetime.datetime.now().strftime("%y-%m-%d-%H-%M"))
 
-    wait(1)
+    wait(2)
 
     type(Key.ENTER)
 
     
 def myBackup():   
-    backup('https://hackpad.com/kJ4yjP1uGvH', 'Safari', 'TextEdit')     #一個hackpad網址, 瀏覽器, 近端文字編輯器
+    backup('http://g0v.today/congressoccupied/HpwTUS2OShF', 'Safari', 'TextEdit')     #一個hackpad網址, 瀏覽器, 近端文字編輯器
 
 
     #https://hackpad.com/kJ4yjP 現場注意事項

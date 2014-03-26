@@ -112,14 +112,21 @@
 
     <span class="skw">type</span>(Key.ENTER)
 
-    <span class="skw">wait</span>(<span class="dig">5</span>)
+    <span class="skw">wait</span>(<span class="dig">6</span>)
 
-    <span class="skw">click</span>(Pattern(<img src="1395819956912.png" />).exact().targetOffset(-<span class="dig">227</span>,<span class="dig">82</span>)) <span class="cmt">#此為hackpad的左上角，每個電腦不同，截圖可能需要自己重拍</span>
+    <span class="skw">wait</span>(Pattern(<img src="1395832531931.png" />).exact().targetOffset(-<span class="dig">131</span>,<span class="dig">83</span>))
+
+    <span class="skw">click</span>(Pattern(<img src="1395832531931.png" />).exact().targetOffset(-<span class="dig">148</span>,<span class="dig">78</span>)) <span class="cmt">#此為hackpad的左上角，每個電腦不同，截圖可能需要自己重拍</span>
 
 
 
     <span class="skw">wait</span>(<span class="dig">2</span>)
-    <span class="skw">type</span>(Key.DOWN * <span class="dig">20</span>, KeyModifier.CTRL); <span class="cmt">#如果文件很大 20 次往下還不夠到底，請自行增加</span>
+    <span class="skw">type</span>(Key.DOWN * <span class="dig">100</span>, KeyModifier.CTRL); <span class="cmt">#如果文件很大 100 次往下還不夠到底，請自行增加</span>
+    <span class="skw">wait</span>(<span class="dig">2</span>)
+
+    <span class="kw">if</span> ( <span class="kw">not</span> exists(Pattern(<img src="1395821225790.png" />).exact())):
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.DOWN * <span class="dig">500</span>, KeyModifier.CTRL); <span class="cmt">#如果文件很大 500 次往下還不夠到底，請自行增加</span>
 
     <span class="skw">wait</span>(<span class="dig">2</span>)
 
@@ -152,13 +159,13 @@
 
     paste(target + <span class="str">'__'</span> + datetime.datetime.now().strftime(<span class="str">"%y-%m-%d-%H-%M"</span>))
 
-    <span class="skw">wait</span>(<span class="dig">1</span>)
+    <span class="skw">wait</span>(<span class="dig">2</span>)
 
     <span class="skw">type</span>(Key.ENTER)
 
 
 <span class="kw">def</span> myBackup():
-    backup(<span class="str">'https://hackpad.com/kJ4yjP1uGvH'</span>, <span class="str">'Safari'</span>, <span class="str">'TextEdit'</span>)     <span class="cmt">#一個hackpad網址, 瀏覽器, 近端文字編輯器</span>
+    backup(<span class="str">'http://g0v.today/congressoccupied/HpwTUS2OShF'</span>, <span class="str">'Safari'</span>, <span class="str">'TextEdit'</span>)     <span class="cmt">#一個hackpad網址, 瀏覽器, 近端文字編輯器</span>
 
 
     <span class="cmt">#https://hackpad.com/kJ4yjP 現場注意事項
